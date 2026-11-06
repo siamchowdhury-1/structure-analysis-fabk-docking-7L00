@@ -90,10 +90,15 @@
   details[open] summary::before{transform:rotate(90deg)}
   details summary:hover{background:var(--accent-soft)}
   details[open] summary{border-bottom:1px solid var(--line)}
-  .detail{padding:14px 16px 14px 34px; background:var(--bg); font-size:15px}
+  details summary .srclink{float:right; font-size:12.5px; font-weight:500;
+                           color:var(--muted); text-decoration:none; margin-left:12px}
+  details summary .srclink:hover{color:var(--accent); text-decoration:underline}
+  .detail{padding:0; background:var(--bg); font-size:15px}
   .detail ol,.detail ul{margin:0; padding-left:20px}
   .detail li{margin:6px 0}
-  .detail pre{margin:10px 0 0}
+  .detail pre{margin:0; border:none; border-radius:0; max-height:520px;
+              overflow:auto; background:var(--bg)}
+  .detail pre code{font-size:12.5px; line-height:1.5; white-space:pre}
   figure{margin:20px 0 24px}
   figure img{width:100%; height:auto; display:block; border:1px solid var(--line);
              border-radius:8px; background:#fff}
@@ -227,9 +232,6 @@ exit with a plain message if the receptor is not found there.</p>
 <p>Each compound is first rendered on its own as a 3D stick model carrying
 ACS-style heteroatom labels — <code>NH</code>, <code>OH</code>,
 <code>NH₂</code> rather than bare <code>N</code> and <code>O</code>.</p>
-
-<pre><code>load compounds/17sa23.mol, 17sa23
-run acs_labels.pml</code></pre>
 
 <h3>Why the hydrogen count comes from valence</h3>
 <p>MOL files exported from drawing programs usually carry no explicit
@@ -436,152 +438,133 @@ contacts.</p>
 <section id="algorithm">
 <h2>Algorithm</h2>
 
-<p>Every file in the repository, with what it does. Click a file name to
-expand.</p>
+<p>Source code and data files, read live from the repository. Click a file name
+to expand it — the contents are pulled from <code>main</code> at that moment, so
+what you see is always the current version, never a copy pasted into this
+page.</p>
 
 <h3>Scripts</h3>
 
-<details>
-<summary><code>make_docking_figures.py</code> — binding-pose rendering</summary>
-<div class="detail">
-<ol>
-  <li>Verify the receptor <code>7L00_AB_protein_FMN.pdb</code> is present in the
-      working directory; exit with a plain message if not.</li>
-  <li>For each compound, reinitialise PyMOL and load the receptor, the crystal
-      ligand <code>XCJ_A402_crystal.sdf</code> and the best pose
-      <code>&lt;cmpd&gt;_best.mol2</code>.</li>
-  <li>Strip aliphatic C–H hydrogens, keeping only polar N–H and O–H.</li>
-  <li>Select the FMN cofactor within 6 Å of the ligand and all protein residues
-      within 4.0 Å.</li>
-  <li>On the first compound only, orient on the XCJ crystal site and store the
-      camera matrix; apply that same matrix to every later compound so the
-      series is directly comparable.</li>
-  <li>Render the pocket overview: protein cartoon, ligand carbons teal, FMN
-      carbons gold.</li>
-  <li>Raise cartoon transparency, show pocket side chains, draw H-bond distance
-      objects, label each residue on its Cα, and render the close-up.</li>
-  <li>Run <code>find_pairs</code> over donor/acceptor atoms and write the H-bond
-      partners and distances to a text file.</li>
-  <li>After the loop, load every compound at once with the crystal ligand and
-      render the overlay.</li>
-</ol>
-</div>
+<details data-file="make_docking_figures.py">
+  <summary><code>make_docking_figures.py</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
 </details>
 
-<details>
-<summary><code>make_interaction_figures.py</code> — interaction detection</summary>
-<div class="detail">
-<ol>
-  <li>Load the receptor and pose, then <code>h_add</code> the receptor so PyMOL
-      can type donors and acceptors; input files are never modified.</li>
-  <li>Define <code>site</code> as everything within 6 Å of the ligand.</li>
-  <li><strong>Hydrogen bonds</strong> — <code>find_pairs</code> on
-      donor/acceptor atoms, ≤ 3.5 Å.</li>
-  <li><strong>Halogen bonds</strong> — each ligand F/Cl/Br/I against site O and
-      N, ≤ 3.5 Å.</li>
-  <li><strong>Salt bridges</strong> — charged ligand N against Asp/Glu
-      carboxylate O, and ligand carboxylate O against Arg/Lys N, ≤ 4.0 Å.</li>
-  <li><strong>Ring detection</strong> — build an adjacency graph from the bond
-      list, find 5- and 6-membered cycles by depth-first search, and keep a ring
-      only if planar: every atom within 0.25 Å of the mean plane. Compute each
-      ring's centroid and normal.</li>
-  <li><strong>π–π stacking</strong> — ligand ring centroid against Phe/Tyr/Trp/His
-      ring centroid, ≤ 5.5 Å, keeping parallel (&lt; 30°) and T-shaped (&gt; 60°)
-      geometries and discarding the intermediate range.</li>
-  <li><strong>π–cation</strong> — ligand ring centroid against Arg/Lys nitrogen,
-      ≤ 6.0 Å.</li>
-  <li><strong>Hydrophobic</strong> — ligand C against apolar side-chain C,
-      ≤ 4.0 Å, requiring ≥ 2 contacts per residue and keeping only the shortest
-      one for display.</li>
-  <li>Collapse to the best contact per residue and type, draw each as a
-      colour-coded dash object, show only the contacting residues, and label
-      them.</li>
-  <li>Write the per-compound TSV, then the combined
-      <code>summary_all_compounds.tsv</code> and the colour legend.</li>
-</ol>
-</div>
+<details data-file="make_interaction_figures.py">
+  <summary><code>make_interaction_figures.py</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
 </details>
 
-<details>
-<summary><code>acs_labels.pml</code> — ACS-style heteroatom labelling</summary>
-<div class="detail">
-<ol>
-  <li>Sum the bond orders on each heteroatom, counting aromatic bonds as 1.5.</li>
-  <li>Derive the implicit hydrogen count as valence + formal charge − summed
-      bond orders, clamped at zero.</li>
-  <li>Compose the label text: <code>NH</code>, <code>NH₂</code>,
-      <code>OH</code>, or the bare element symbol when the count is zero.</li>
-  <li>Apply the label, size it in Ångströms, and float it above the sticks with
-      a white outline.</li>
-</ol>
-</div>
+<h3>Data — <code>interactions_focused/</code></h3>
+
+<details data-file="interactions_focused/summary_all_compounds.tsv">
+  <summary><code>summary_all_compounds.tsv</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
 </details>
 
-<h3>Output — <code>figures_focused/</code></h3>
-
-<details>
-<summary><code>&lt;cmpd&gt;_pocket.png</code></summary>
-<div class="detail">Binding-pose overview. Ligand carbons teal, FMN carbons
-gold, protein as a transparent cartoon. Shared camera across the series.
-Rendered at 2400 × 1800, 300 dpi.</div>
+<details data-file="interactions_focused/20sa23_interactions.tsv">
+  <summary><code>20sa23_interactions.tsv</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
 </details>
 
-<details>
-<summary><code>&lt;cmpd&gt;_closeup.png</code></summary>
-<div class="detail">Pocket view with every residue within 4.0 Å shown as sticks
-and labelled on its Cα, and hydrogen bonds drawn as dashes carrying their
-distance in Ångströms.</div>
+<details data-file="interactions_focused/25sa23_interactions.tsv">
+  <summary><code>25sa23_interactions.tsv</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
 </details>
 
-<details>
-<summary><code>&lt;cmpd&gt;_interactions.txt</code></summary>
-<div class="detail">Plain-text H-bond list: ligand atom, partner residue and
-atom, distance. Written directly from <code>find_pairs</code>.</div>
+<details data-file="interactions_focused/22sa23_interactions.tsv">
+  <summary><code>22sa23_interactions.tsv</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
 </details>
 
-<details>
-<summary><code>overlay_all.png</code> · <code>overlay_legend.txt</code></summary>
-<div class="detail">All five compounds superimposed in one pocket, each in its
-own colour, with the co-crystallised ligand XCJ as thin grey sticks for
-reference. The legend file maps each colour to its compound.</div>
+<details data-file="interactions_focused/5sa23_interactions.tsv">
+  <summary><code>5sa23_interactions.tsv</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
 </details>
 
-<details>
-<summary><code>&lt;cmpd&gt;_session.pse</code></summary>
-<div class="detail">Full PyMOL session. Open it to rotate the view and re-render
-by hand without re-running the script. Excluded from the repository as
-regenerable.</div>
+<details data-file="interactions_focused/17sa23_interactions.tsv">
+  <summary><code>17sa23_interactions.tsv</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
 </details>
 
-<h3>Output — <code>interactions_focused/</code></h3>
-
-<details>
-<summary><code>&lt;cmpd&gt;_interactions.png</code></summary>
-<div class="detail">Interaction map. Only residues that make contact are drawn
-and labelled; dash colour encodes the interaction type. Polar contacts carry
-their distance, hydrophobic contacts do not.</div>
+<details data-file="interactions_focused/legend.txt">
+  <summary><code>legend.txt</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
 </details>
 
-<details>
-<summary><code>&lt;cmpd&gt;_interactions.tsv</code></summary>
-<div class="detail">One row per contact, sorted by interaction type then
-distance. Columns: <code>type</code>, <code>residue</code>, <code>chain</code>,
-<code>ligand_atom</code>, <code>residue_atom</code>,
-<code>distance_A</code>.</div>
+<h3>Data — <code>figures_focused/</code></h3>
+
+<details data-file="figures_focused/20sa23_interactions.txt">
+  <summary><code>20sa23_interactions.txt</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
 </details>
 
-<details>
-<summary><code>summary_all_compounds.tsv</code></summary>
-<div class="detail">Every contact for all five compounds in one table, with a
-leading <code>compound</code> column. This is the file to open for analysis or
-to build a manuscript table from.</div>
+<details data-file="figures_focused/25sa23_interactions.txt">
+  <summary><code>25sa23_interactions.txt</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
 </details>
 
-<details>
-<summary><code>legend.txt</code></summary>
-<div class="detail">Colour key with the cutoff used for each interaction type,
-written for use as a figure caption.</div>
+<details data-file="figures_focused/22sa23_interactions.txt">
+  <summary><code>22sa23_interactions.txt</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
 </details>
+
+<details data-file="figures_focused/5sa23_interactions.txt">
+  <summary><code>5sa23_interactions.txt</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
+</details>
+
+<details data-file="figures_focused/17sa23_interactions.txt">
+  <summary><code>17sa23_interactions.txt</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
+</details>
+
+<details data-file="figures_focused/overlay_legend.txt">
+  <summary><code>overlay_legend.txt</code></summary>
+  <div class="detail"><pre><code class="filebody">Loading…</code></pre></div>
+</details>
+
+<script>
+(function () {
+  var REPO = 'https://github.com/siamchowdhury-1/structure-analysis-fabk-docking-7L00/blob/main/';
+  var RAW  = 'https://raw.githubusercontent.com/siamchowdhury-1/structure-analysis-fabk-docking-7L00/main/';
+
+  function esc(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  document.querySelectorAll('details[data-file]').forEach(function (d) {
+    var path = d.getAttribute('data-file');
+
+    // link to the file on GitHub, next to the name
+    var a = document.createElement('a');
+    a.href = REPO + path;
+    a.textContent = 'view on GitHub';
+    a.className = 'srclink';
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.addEventListener('click', function (e) { e.stopPropagation(); });
+    d.querySelector('summary').appendChild(a);
+
+    d.addEventListener('toggle', function () {
+      if (!d.open || d.dataset.loaded) return;
+      d.dataset.loaded = '1';
+      var out = d.querySelector('.filebody');
+
+      fetch(RAW + path, { cache: 'no-store' })
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.text();
+        })
+        .then(function (t) { out.innerHTML = esc(t); })
+        .catch(function () {
+          out.innerHTML = 'Could not reach GitHub just now — '
+            + '<a href="' + REPO + path + '">open this file directly</a>.';
+        });
+    });
+  });
+})();
+</script>
 </section>
 
 <!-- ------------------------------------------------ -->

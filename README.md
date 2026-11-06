@@ -66,13 +66,11 @@ limited statistical weight on its own.
 
 | File | Purpose |
 |---|---|
-| `index.html` | Step-by-step walkthrough of the analysis, viewable in a browser |
+| `index.html` | Step-by-step walkthrough, with every figure and the live source of each file |
 | `make_docking_figures.py` | Binding-pose overview, close-up with H-bonds, and an all-compound overlay |
 | `make_interaction_figures.py` | Interaction map: H-bonds, halogen bonds, salt bridges, π–π, π–cation, hydrophobic |
-| `acs_labels.pml` | ACS-style labelling of a single compound (NH, OH, NH₂ …) |
-
-Open `index.html` in any browser for the narrated version of the workflow, with
-the code for each step shown inline.
+| `figures_focused/` | Pose figures, close-ups, overlay, H-bond lists |
+| `interactions_focused/` | Interaction maps and contact tables |
 
 ---
 
@@ -147,13 +145,6 @@ cd ~/Documents/Computational_work/"WORK LAB"/s_series
 
 Render an individual compound as a 3D stick model with ACS-style heteroatom
 labels (`NH`, `OH`, `NH₂` rather than bare `N`, `O`).
-
-In PyMOL:
-
-```
-load compounds/17sa23.mol, 17sa23
-run acs_labels.pml
-```
 
 Key points:
 
@@ -293,12 +284,12 @@ contacts.
 
 ---
 
----
-
 ## Algorithm
 
-Every file, with what it does. The expandable version is on the
-[online walkthrough](https://siamchowdhury-1.github.io/structure-analysis-fabk-docking-7L00/#algorithm).
+Every file, with what it does. The
+[online walkthrough](https://siamchowdhury-1.github.io/structure-analysis-fabk-docking-7L00/#algorithm)
+shows the same list with the actual source of each file, pulled live from
+`main`.
 
 ### `make_docking_figures.py`
 
@@ -333,7 +324,7 @@ Every file, with what it does. The expandable version is on the
    show and label only contacting residues.
 10. Write the per-compound TSV, the combined summary and the colour legend.
 
-### `acs_labels.pml`
+### ACS-style labelling (Step 1)
 
 1. Sum bond orders per heteroatom, counting aromatic bonds as 1.5.
 2. Implicit H count = valence + formal charge − summed bond orders, clamped at
@@ -381,8 +372,7 @@ Add an angle filter before quoting these counts.
 
 ## Notes
 
-- `.pse` sessions are regenerable and are excluded from version control; see the
-  top-level `.gitignore`.
+- `.pse` sessions are regenerable and are excluded from the repository.
 - Scripts call `cmd.reinitialize()` on each compound, so anything already loaded
   in an interactive PyMOL session is cleared. Save your work first when running
   these with `run` instead of `pymol -cq`.
