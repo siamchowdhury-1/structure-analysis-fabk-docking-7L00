@@ -13,11 +13,13 @@ Beck College of Sciences and Mathematics, Arkansas State University, AR, USA
 PyMOL scripts for analysing and rendering the binding interactions between the
 enoyl-ACP reductase FabK (PDB 7L00) and the s_series compounds.
 
-**Siam Chowdhury** (Beck Scholar) · [www.siamchowdhury.com](https://www.siamchowdhury.com)
-Computational and Medicinal Chemistry
-Mentor: **Mohammad Alam, PhD**, Professor of Chemistry
-[Dr. Alam's Research Team](https://www.alamresearch.org)
-Beck College of Sciences and Mathematics, Arkansas State University, AR, USA
+| | |
+|---|---|
+| **Author** | Siam Chowdhury (Beck Scholar) · [www.siamchowdhury.com](https://www.siamchowdhury.com) |
+| **Field** | Computational and Medicinal Chemistry |
+| **Mentor** | Mohammad Alam, PhD — Professor of Chemistry |
+| **Research group** | [Dr. Alam's Research Team](https://www.alamresearch.org) |
+| **Institution** | Beck College of Sciences and Mathematics, Arkansas State University, AR, USA |
 
 ---
 
@@ -25,13 +27,28 @@ Beck College of Sciences and Mathematics, Arkansas State University, AR, USA
 
 | File | Purpose |
 |---|---|
+| `index.html` | Step-by-step walkthrough of the analysis, viewable in a browser |
 | `make_docking_figures.py` | Binding-pose overview, close-up with H-bonds, and an all-compound overlay |
 | `make_interaction_figures.py` | Interaction map: H-bonds, halogen bonds, salt bridges, π–π, π–cation, hydrophobic |
 | `acs_labels.pml` | ACS-style labelling of a single compound (NH, OH, NH₂ …) |
 
+Open `index.html` in any browser for the narrated version of the workflow, with
+the code for each step shown inline.
+
 ---
 
 ## Requirements
+
+> **No GUI involved.** This analysis was not carried out in the PyMOL desktop
+> application. Every figure and table was produced by scripting PyMOL's Python
+> API from the Linux command line, running headless (`pymol -cq`), e.g.
+>
+> ```
+> (docking) siam.chowdhur@CSM-DL-CRF0M2:~/Documents/Computational_work/WORK LAB/s_series$
+> ```
+>
+> Nothing is clicked, positioned or exported by hand, so the entire analysis is
+> reproducible by re-running the scripts.
 
 PyMOL (open-source or Incentive) with Python 3. Everything else ships with PyMOL
 (`chempy.cpv` is used for the ring geometry).
@@ -72,6 +89,10 @@ which the aromatic-ring and valence detection depend on.
 ---
 
 # Workflow
+
+The same steps are available as a browser-readable walkthrough in
+[`index.html`](index.html) — open it locally, or serve it with
+`python -m http.server` and visit <http://localhost:8000>.
 
 This covers the visualisation and interaction-analysis stage only. Receptor
 preparation, redocking validation, Vina docking and MM-GBSA are upstream steps

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  Siam Chowdhury (Beck Scholar); [www.siamchowdhury.com]
+  Computational and Medicinal Chemistry
+  Mentor: Mohammad Alam PhD., Professor of Chemistry
+  [Dr. Alam's Research Team] www.alamresearch.org
+  Beck College of Sciences and Mathematics, Arkansas State University, AR, USA
+  ----------------------------------------------------------------------------
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Structure Analysis — 7L00 (FabK)</title>
+<style>
+  :root{
+    --bg:#ffffff; --fg:#1a1d21; --muted:#5b636d; --line:#e2e6ea;
+    --accent:#0b6e6b; --accent-soft:#e8f4f3; --code-bg:#f6f8fa; --code-fg:#24292f;
+    --warn-bg:#fff8e6; --warn-line:#e0b94a;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14171a; --fg:#e8eaed; --muted:#9aa4af; --line:#2a2f35;
+      --accent:#49b7b2; --accent-soft:#17302f; --code-bg:#1b1f24; --code-fg:#d7dde3;
+      --warn-bg:#2b2616; --warn-line:#8a7430;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14171a; --fg:#e8eaed; --muted:#9aa4af; --line:#2a2f35;
+    --accent:#49b7b2; --accent-soft:#17302f; --code-bg:#1b1f24; --code-fg:#d7dde3;
+    --warn-bg:#2b2616; --warn-line:#8a7430;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:860px; margin:0 auto; padding:0 16px 96px}
+  header{border-bottom:1px solid var(--line); padding:56px 0 28px; margin-bottom:8px}
+  .eyebrow{color:var(--accent); font-size:13px; letter-spacing:.12em; text-transform:uppercase; font-weight:650; margin:0 0 10px}
+  h1{font-size:30px; line-height:1.25; margin:0 0 6px; letter-spacing:-.015em}
+  h1 .sub{display:block; font-size:19px; font-weight:500; color:var(--muted); margin-top:8px; letter-spacing:0}
+  h2{font-size:22px; margin:52px 0 14px; letter-spacing:-.01em; scroll-margin-top:20px}
+  h3{font-size:16px; margin:28px 0 8px; color:var(--muted); font-weight:650;
+     text-transform:uppercase; letter-spacing:.07em}
+  p{margin:0 0 14px}
+  a{color:var(--accent)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.9em;
+       background:var(--code-bg); padding:.15em .4em; border-radius:4px}
+  pre{background:var(--code-bg); color:var(--code-fg); padding:14px 16px; border-radius:8px;
+      overflow-x:auto; border:1px solid var(--line); margin:0 0 16px}
+  pre code{background:none; padding:0; font-size:13.5px; line-height:1.55}
+  table{border-collapse:collapse; width:100%; margin:0 0 18px; font-size:14.5px}
+  th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-weight:650; color:var(--muted); font-size:13px; text-transform:uppercase; letter-spacing:.05em}
+  tbody tr:last-child td{border-bottom:none}
+  .meta td:first-child{color:var(--muted); white-space:nowrap; width:150px}
+  .note{background:var(--warn-bg); border-left:3px solid var(--warn-line);
+        padding:14px 16px; border-radius:0 6px 6px 0; margin:0 0 20px; font-size:15px}
+  .note strong{display:block; margin-bottom:4px}
+  .step{border-left:3px solid var(--accent); padding-left:18px; margin:40px 0}
+  .step h2{margin-top:0}
+  .pill{display:inline-block; background:var(--accent-soft); color:var(--accent);
+        font-size:12px; font-weight:650; padding:3px 9px; border-radius:99px;
+        letter-spacing:.04em; margin-bottom:10px}
+  .swatch{display:inline-block; width:11px; height:11px; border-radius:3px;
+          margin-right:7px; vertical-align:-1px; border:1px solid rgba(128,128,128,.35)}
+  nav.toc{background:var(--code-bg); border:1px solid var(--line); border-radius:8px;
+          padding:16px 20px; margin:24px 0 8px}
+  nav.toc p{font-size:13px; text-transform:uppercase; letter-spacing:.07em;
+            color:var(--muted); font-weight:650; margin:0 0 8px}
+  nav.toc ol{margin:0; padding-left:20px; font-size:15px}
+  nav.toc li{margin:3px 0}
+  footer{border-top:1px solid var(--line); margin-top:64px; padding-top:22px;
+         color:var(--muted); font-size:14px}
+  @media (max-width:560px){
+    h1{font-size:25px} header{padding-top:36px}
+    .meta td:first-child{width:auto}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Computational &amp; Medicinal Chemistry</p>
+  <h1>Structure Analysis of the Interaction of 7L00 (FabK)
+    <span class="sub">with compounds 5sa23, 17sa23, 20sa23, 22sa23 and 25sa23</span>
+  </h1>
+</header>
+
+<table class="meta">
+  <tbody>
+    <tr><td>Author</td><td>Siam Chowdhury (Beck Scholar) · <a href="https://www.siamchowdhury.com">www.siamchowdhury.com</a></td></tr>
+    <tr><td>Field</td><td>Computational and Medicinal Chemistry</td></tr>
+    <tr><td>Mentor</td><td>Mohammad Alam, PhD — Professor of Chemistry</td></tr>
+    <tr><td>Research group</td><td><a href="https://www.alamresearch.org">Dr. Alam's Research Team</a></td></tr>
+    <tr><td>Institution</td><td>Beck College of Sciences and Mathematics, Arkansas State University, AR, USA</td></tr>
+  </tbody>
+</table>
+
+<p>This page documents the visualisation and interaction-analysis stage of the
+FabK study: how the docked poses of five s_series compounds were rendered and
+how every protein–ligand contact was detected, measured and tabulated. Receptor
+preparation, redocking validation, Vina docking and MM-GBSA are upstream steps
+documented separately.</p>
+
+<div class="note">
+  <strong>No GUI involved</strong>
+  This analysis was not carried out in the PyMOL desktop application. Every
+  figure and table was produced by scripting PyMOL's Python API from the Linux
+  command line, running headless with <code>pymol -cq</code>:
+  <pre style="margin:10px 0 0"><code>(docking) siam.chowdhur@CSM-DL-CRF0M2:~/Documents/Computational_work/WORK LAB/s_series$</code></pre>
+  <p style="margin:10px 0 0">Nothing is clicked, positioned or exported by hand,
+  so the whole analysis is reproducible by re-running the scripts.</p>
+</div>
+
+<nav class="toc">
+  <p>Steps</p>
+  <ol>
+    <li><a href="#setup">Environment and input files</a></li>
+    <li><a href="#step1">2D-style structure rendering</a></li>
+    <li><a href="#step2">Binding-pose figures</a></li>
+    <li><a href="#step3">Full interaction analysis</a></li>
+    <li><a href="#step4">Label sizing</a></li>
+    <li><a href="#step5">Review of results</a></li>
+    <li><a href="#step6">Version control</a></li>
+    <li><a href="#issues">Issues encountered</a></li>
+  </ol>
+</nav>
+
+<!-- ------------------------------------------------ -->
+<section class="step" id="setup">
+<span class="pill">STEP 0</span>
+<h2>Environment and input files</h2>
+
+<p>PyMOL (open-source or Incentive) with Python 3. Everything else ships with
+PyMOL — <code>chempy.cpv</code> supplies the vector maths used for ring
+geometry.</p>
+
+<pre><code>conda activate docking
+cd ~/Documents/Computational_work/"WORK LAB"/s_series
+pymol -cq --version</code></pre>
+
+<h3>Expected layout</h3>
+<pre><code>s_series/
+├── 7L00_AB_protein_FMN.pdb        # receptor: protein + FMN cofactor
+├── XCJ_A402_crystal.sdf           # crystal ligand (sets the common camera view)
+├── docking_focused_&lt;cmpd&gt;/
+│   └── &lt;cmpd&gt;_best.mol2           # top-scoring pose, read by both scripts
+└── docking_&lt;cmpd&gt;/                # same layout, non-focused run</code></pre>
+
+<p><code>*_best.mol2</code> is used rather than <code>.pdbqt</code> because it
+preserves bond orders, which the aromatic-ring detection and the valence-based
+hydrogen counting both depend on.</p>
+
+<p>All paths in the scripts are relative to the current working directory, so
+the analysis can be relocated — <code>cd</code> into the folder holding the
+receptor and the <code>docking_*</code> folders before running. Both scripts
+exit with a plain message if the receptor is not found there.</p>
+</section>
+
+<!-- ------------------------------------------------ -->
+<section class="step" id="step1">
+<span class="pill">STEP 1</span>
+<h2>2D-style structure rendering</h2>
+
+<p>Each compound is first rendered on its own as a 3D stick model carrying
+ACS-style heteroatom labels — <code>NH</code>, <code>OH</code>,
+<code>NH₂</code> rather than bare <code>N</code> and <code>O</code>.</p>
+
+<pre><code>load compounds/17sa23.mol, 17sa23
+run acs_labels.pml</code></pre>
+
+<h3>Why the hydrogen count comes from valence</h3>
+<p>MOL files exported from drawing programs usually carry no explicit
+hydrogens, and <code>h_add</code> will not add them when the file's bond orders
+already satisfy each atom. The label text is therefore computed the way a
+drawing program does it — from valence minus the summed bond orders, with
+aromatic bonds counted as order 1.5 so ring nitrogens are typed correctly:</p>
+
+<pre><code>valence = {"N": 3, "O": 2, "S": 2, "P": 3}
+nH = valence[elem] + formal_charge - sum_of_bond_orders
+txt = elem if nH == 0 else elem + "H" + subscript(nH)</code></pre>
+
+<h3>Label rendering</h3>
+<ul>
+  <li><code>label_size</code> is negative, which sizes text in Ångströms rather
+      than screen pixels, so labels stay sharp at any render resolution.</li>
+  <li><code>float_labels, 1</code> draws labels on top of the sticks instead of
+      letting the geometry clip them.</li>
+  <li>Black text with a white outline keeps every label readable regardless of
+      the bond colour beneath it.</li>
+</ul>
+</section>
+
+<!-- ------------------------------------------------ -->
+<section class="step" id="step2">
+<span class="pill">STEP 2</span>
+<h2>Binding-pose figures</h2>
+
+<pre><code>pymol -cq make_docking_figures.py            # focused docking (default)
+pymol -cq make_docking_figures.py -- regular # non-focused run</code></pre>
+
+<p>For each compound the script loads the receptor, overlays the best pose,
+selects the FMN cofactor and every residue within 4.0&nbsp;Å of the ligand, and
+renders two views. The camera is set once from the XCJ crystal ligand site and
+reused for every compound, so the five images align when assembled into a
+panel.</p>
+
+<h3>Output — <code>figures_focused/</code></h3>
+<table>
+  <thead><tr><th>File</th><th>Contents</th></tr></thead>
+  <tbody>
+    <tr><td><code>&lt;cmpd&gt;_pocket.png</code></td><td>Ligand (teal) and FMN (gold) in the FabK cartoon</td></tr>
+    <tr><td><code>&lt;cmpd&gt;_closeup.png</code></td><td>Pocket residues labelled, H-bonds dashed with distances</td></tr>
+    <tr><td><code>&lt;cmpd&gt;_interactions.txt</code></td><td>H-bond partners and distances</td></tr>
+    <tr><td><code>&lt;cmpd&gt;_session.pse</code></td><td>Session for manual re-orientation</td></tr>
+    <tr><td><code>overlay_all.png</code></td><td>All five compounds plus crystal ligand XCJ in one pocket</td></tr>
+    <tr><td><code>overlay_legend.txt</code></td><td>Colour key for the overlay</td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- ------------------------------------------------ -->
+<section class="step" id="step3">
+<span class="pill">STEP 3</span>
+<h2>Full interaction analysis</h2>
+
+<pre><code>pymol -cq make_interaction_figures.py            # focused docking (default)
+pymol -cq make_interaction_figures.py -- regular # non-focused run</code></pre>
+
+<p>Hydrogens are added to the receptor at runtime so PyMOL can type donors and
+acceptors; the input files themselves are never modified. Ligand aromatic rings
+are found by cycle detection on the bond graph and kept only if planar — every
+ring atom within 0.25&nbsp;Å of the mean plane. Only residues that actually make
+contact are drawn and labelled, which is what keeps the figures readable.</p>
+
+<h3>Detection criteria</h3>
+<table>
+  <thead><tr><th>Interaction</th><th>Rendered as</th><th>Cutoff</th></tr></thead>
+  <tbody>
+    <tr><td>Hydrogen bond</td><td><span class="swatch" style="background:#ffd91a"></span>yellow dashes + distance</td><td>≤ 3.5 Å, donor/acceptor</td></tr>
+    <tr><td>Salt bridge</td><td><span class="swatch" style="background:#e62626"></span>red dashes</td><td>≤ 4.0 Å</td></tr>
+    <tr><td>Halogen bond</td><td><span class="swatch" style="background:#d933bf"></span>magenta dashes</td><td>≤ 3.5 Å, C–X···O/N</td></tr>
+    <tr><td>π–π stacking</td><td><span class="swatch" style="background:#26b340"></span>green dashes (centroid–centroid)</td><td>≤ 5.5 Å; parallel &lt; 30° or T-shaped &gt; 60°</td></tr>
+    <tr><td>π–cation</td><td><span class="swatch" style="background:#ff8c0d"></span>orange dashes</td><td>≤ 6.0 Å to Arg/Lys N</td></tr>
+    <tr><td>Hydrophobic</td><td><span class="swatch" style="background:#8c8c8c"></span>grey dotted</td><td>≤ 4.0 Å C···C, ≥ 2 contacts per residue</td></tr>
+  </tbody>
+</table>
+
+<h3>Output — <code>interactions_focused/</code></h3>
+<table>
+  <thead><tr><th>File</th><th>Contents</th></tr></thead>
+  <tbody>
+    <tr><td><code>&lt;cmpd&gt;_interactions.png</code></td><td>Contacting residues only, labelled, colour-coded by type</td></tr>
+    <tr><td><code>&lt;cmpd&gt;_interactions.tsv</code></td><td>Every contact: type, residue, chain, atom names, distance</td></tr>
+    <tr><td><code>summary_all_compounds.tsv</code></td><td>All five compounds in one table</td></tr>
+    <tr><td><code>legend.txt</code></td><td>Colour key for the figure caption</td></tr>
+    <tr><td><code>&lt;cmpd&gt;_session.pse</code></td><td>Session for manual re-orientation</td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- ------------------------------------------------ -->
+<section class="step" id="step4">
+<span class="pill">STEP 4</span>
+<h2>Label sizing</h2>
+
+<p>The default label size was too small to read at 2400 × 1800. The value is
+adjusted in place and the figures re-rendered:</p>
+
+<pre><code>sed -i 's/s("label_size", -[0-9.]*)/s("label_size", -2.0)/' make_interaction_figures.py
+pymol -cq make_interaction_figures.py</code></pre>
+
+<p>The <code>-[0-9.]*</code> pattern matches whatever value is currently set, so
+the command works no matter how many times the size has already been changed —
+matching a literal previous value fails silently once it has moved on. Values
+are in Ångströms; a larger magnitude means larger text. <code>-2.0</code> was
+used for the final figures.</p>
+
+<p>To adjust one figure by hand rather than re-running everything:</p>
+
+<pre><code>pymol interactions_focused/17sa23_interactions.pse</code></pre>
+<pre><code>set label_size, -2.0
+png 17sa23_final.png, width=2400, height=1800, dpi=300, ray=1</code></pre>
+
+<h3>Other constants worth tuning</h3>
+<pre><code>HB_CUT   = 3.5    # hydrogen-bond cutoff (Å)
+PHOB_CUT = 4.0    # hydrophobic C···C cutoff (Å)
+WIDTH, HEIGHT, DPI = 2400, 1800, 300</code></pre>
+</section>
+
+<!-- ------------------------------------------------ -->
+<section class="step" id="step5">
+<span class="pill">STEP 5</span>
+<h2>Review of results</h2>
+
+<pre><code>cat interactions_focused/summary_all_compounds.tsv
+xdg-open interactions_focused/17sa23_interactions.png</code></pre>
+
+<h3>Contacts detected — focused docking run</h3>
+<table>
+  <thead><tr><th>Compound</th><th>H-bond</th><th>Halogen</th><th>π–π</th><th>Hydrophobic</th></tr></thead>
+  <tbody>
+    <tr><td>5sa23</td><td>0</td><td>0</td><td>1</td><td>5</td></tr>
+    <tr><td>17sa23</td><td>1</td><td>2</td><td>1</td><td>5</td></tr>
+    <tr><td>20sa23</td><td>2</td><td>3</td><td>2</td><td>4</td></tr>
+    <tr><td>22sa23</td><td>2</td><td>0</td><td>1</td><td>5</td></tr>
+    <tr><td>25sa23</td><td>1</td><td>5</td><td>1</td><td>3</td></tr>
+  </tbody>
+</table>
+
+<p>20sa23 forms the most extensive polar network; the fluorine-rich compounds
+(25sa23, 20sa23) register the most halogen contacts.</p>
+
+<div class="note">
+  <strong>Known limitation</strong>
+  The halogen-bond test is distance-only. A genuine halogen bond also requires a
+  near-linear C–X···O angle (≈140–180°), and aryl C–F is a weak donor at best,
+  so some reported F···O contacts are close contacts rather than true halogen
+  bonds. An angle filter should be added before these counts are quoted.
+</div>
+</section>
+
+<!-- ------------------------------------------------ -->
+<section class="step" id="step6">
+<span class="pill">STEP 6</span>
+<h2>Version control</h2>
+
+<pre><code>git init
+git branch -M main
+git add .
+git commit -m "FabK (7L00) structure analysis: scripts, figures and interaction tables"</code></pre>
+
+<p><code>.gitignore</code> excludes regenerable and oversized output:
+<code>.pse</code> sessions, <code>.pdbqt</code> files, multi-pose SDF/MOL2
+files and MM-GBSA trajectories. The <code>.tsv</code> interaction tables and
+<code>*_best.mol2</code> poses are small and are tracked.</p>
+
+<p>Sizes are checked before pushing — GitHub warns above 50&nbsp;MB per file and
+blocks at 100&nbsp;MB:</p>
+
+<pre><code>git count-objects -vH
+find . -size +45M -not -path "./.git/*"</code></pre>
+</section>
+
+<!-- ------------------------------------------------ -->
+<section id="issues">
+<h2>Issues encountered</h2>
+<table>
+  <thead><tr><th>Problem</th><th>Cause</th><th>Fix</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Labels read <code>N</code> instead of <code>NH</code></td>
+      <td>MOL file had no explicit hydrogens, and <code>h_add</code> would not add them</td>
+      <td>Derive the H count from valence minus summed bond orders</td>
+    </tr>
+    <tr>
+      <td>Labels looked like cut-off stickers</td>
+      <td>White label backgrounds clipped by the sticks</td>
+      <td><code>float_labels, 1</code> and a white outline instead of a filled background</td>
+    </tr>
+    <tr>
+      <td>Label text invisible against bonds</td>
+      <td>Label colour matched the bond colour beneath it</td>
+      <td>Black text with a white halo</td>
+    </tr>
+    <tr>
+      <td><code>AttributeError: 'float' object has no attribute 'update'</code></td>
+      <td>A variable named <code>b</code> inside <code>cmd.iterate</code> collides with PyMOL's reserved B-factor variable</td>
+      <td>Rename the namespace variables to <code>p1</code> / <code>p2</code></td>
+    </tr>
+    <tr>
+      <td><code>sed</code> label-size edit silently did nothing</td>
+      <td>The pattern matched the previous literal value, which had already changed</td>
+      <td>Match any number with <code>-[0-9.]*</code></td>
+    </tr>
+  </tbody>
+</table>
+</section>
+
+<footer>
+  <p>Siam Chowdhury (Beck Scholar) ·
+     <a href="https://www.siamchowdhury.com">www.siamchowdhury.com</a><br>
+     Computational and Medicinal Chemistry · Mentor: Mohammad Alam, PhD<br>
+     <a href="https://www.alamresearch.org">Dr. Alam's Research Team</a> ·
+     Beck College of Sciences and Mathematics, Arkansas State University, AR, USA</p>
+</footer>
+
+</div>
+</body>
+</html>
