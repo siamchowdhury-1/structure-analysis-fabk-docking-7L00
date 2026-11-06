@@ -1,0 +1,7 @@
+type	residue	chain	ligand_atom	residue_atom	distance_A
+pistack	His143	A	ring1	ring	4.25
+hydrophobic	Ala95	A	C	CB	3.41
+hydrophobic	Met70	A	C	CE	3.57
+hydrophobic	Leu260	A	C	CB	3.65
+hydrophobic	Met275	A	C	CE	3.71
+hydrophobic	Ala20	A	C	CB	3.86

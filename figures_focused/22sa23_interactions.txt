@@ -1,0 +1,4 @@
+22sa23  H-bond partners (cutoff 3.6 A)
+ligand_atom	partner	distance_A
+O	His143A:O	3.02
+O	Fmn401A:N1	3.33

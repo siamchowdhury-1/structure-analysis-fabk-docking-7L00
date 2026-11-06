@@ -1,0 +1,9 @@
+type	residue	chain	ligand_atom	residue_atom	distance_A
+hbond	His143	A	O	O	3.02
+hbond	Fmn401	A	O	N1	3.33
+pistack	His143	A	ring2	ring	3.99
+hydrophobic	Ala95	A	C	CB	3.17
+hydrophobic	Met275	A	C	CE	3.62
+hydrophobic	Met70	A	C	CE	3.67
+hydrophobic	Met72	A	C	CB	3.67
+hydrophobic	Leu260	A	C	CD2	3.74

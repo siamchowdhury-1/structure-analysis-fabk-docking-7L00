@@ -1,0 +1,12 @@
+type	residue	chain	ligand_atom	residue_atom	distance_A
+hbond	His143	A	N	O	3.04
+hbond	Asn44	A	O	ND2	3.24
+halogen	Glu136	A	CL	O	3.32
+halogen	Gly96	A	CL	N	3.37
+halogen	Val115	A	CL	O	3.43
+pistack	His143	A	ring3	ring	3.85
+pistack	His226	A	ring1	ring	5.22
+hydrophobic	Pro117	A	C	CD	3.38
+hydrophobic	Met72	A	C	CG	3.39
+hydrophobic	Ala95	A	C	CB	3.46
+hydrophobic	Val115	A	C	CG1	3.49

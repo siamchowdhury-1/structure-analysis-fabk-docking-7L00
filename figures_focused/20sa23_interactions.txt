@@ -1,0 +1,5 @@
+20sa23  H-bond partners (cutoff 3.6 A)
+ligand_atom	partner	distance_A
+O	Asn44A:ND2	3.24
+O	Asn44A:OD1	3.53
+N	His143A:O	3.04

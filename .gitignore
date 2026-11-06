@@ -1,0 +1,19 @@
+# PyMOL sessions (large, regenerable by the scripts)
+*.pse
+
+# docking inputs/outputs not needed in the repo
+*.pdbqt
+*_all20.mol2
+*_poses.sdf
+*_all_poses_complex.pdb
+
+# python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store

@@ -1,0 +1,11 @@
+type	residue	chain	ligand_atom	residue_atom	distance_A
+hbond	Asn44	A	O	ND2	3.24
+halogen	Fmn401	A	F	O2	3.03
+halogen	Glu136	A	F	OE1	3.17
+halogen	Ala95	A	F	N	3.22
+halogen	Gly145	A	F	N	3.43
+halogen	His143	A	F	O	3.47
+pistack	His143	A	ring4	ring	3.79
+hydrophobic	Ala95	A	C	CB	3.37
+hydrophobic	Met72	A	C	CG	3.39
+hydrophobic	Val115	A	C	CG1	3.43

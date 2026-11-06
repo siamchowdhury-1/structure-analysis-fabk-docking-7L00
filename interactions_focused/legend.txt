@@ -1,0 +1,8 @@
+Interaction color key
+H-bond		yellow dashes	<= 3.5 A
+Salt bridge	red dashes	<= 4.0 A
+Halogen bond	magenta dashes	<= 3.5 A
+pi-pi stacking	green dashes	<= 5.5 A (centroid)
+pi-cation	orange dashes	<= 6.0 A
+Hydrophobic	grey dots	<= 4.0 A, >= 2 contacts
+Ligand carbons teal, residue carbons grey, FMN carbons gold.
