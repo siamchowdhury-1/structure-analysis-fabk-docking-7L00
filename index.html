@@ -80,6 +80,14 @@
             color:var(--muted); font-weight:650; margin:0 0 8px}
   nav.toc ol{margin:0; padding-left:20px; font-size:15px}
   nav.toc li{margin:3px 0}
+  figure{margin:20px 0 24px}
+  figure img{width:100%; height:auto; display:block; border:1px solid var(--line);
+             border-radius:8px; background:#fff}
+  figcaption{font-size:13.5px; color:var(--muted); margin-top:8px; line-height:1.55}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+        gap:16px; margin:20px 0 24px}
+  .grid figure{margin:0}
+  .grid figcaption{margin-top:6px; font-size:13px}
   .links{font-size:15px; margin:0 0 8px}
   .links a{display:inline-block; margin-right:18px}
   footer{border-top:1px solid var(--line); margin-top:60px; padding-top:22px;
@@ -104,6 +112,7 @@
   measured and tabulated.</p>
   <p class="links">
     <a href="https://siamchowdhury-1.github.io/fabk-docking-7L00/">Full study report</a>
+    <a href="https://github.com/siamchowdhury-1/structure-analysis-fabk-docking-7L00">Source &amp; data</a>
     <a href="https://doi.org/10.1021/acs.jmedchem.3c00969">Reference paper</a>
   </p>
 </header>
@@ -256,6 +265,26 @@ panel.</p>
     <tr><td><code>overlay_legend.txt</code></td><td>Colour key for the overlay</td></tr>
   </tbody>
 </table>
+
+<figure>
+  <img src="figures_focused/20sa23_pocket.png" alt="20sa23 bound in the FabK pocket, with the FMN cofactor" loading="lazy">
+  <figcaption><strong>20sa23 in the FabK pocket.</strong> Ligand carbons teal,
+  FMN carbons gold, protein as a transparent cartoon. Most potent compound of
+  the series (MIC 1 µg/mL).</figcaption>
+</figure>
+
+<figure>
+  <img src="figures_focused/20sa23_closeup.png" alt="Close-up of 20sa23 with pocket residues labelled and hydrogen bonds dashed" loading="lazy">
+  <figcaption><strong>Close-up.</strong> Residues within 4.0 Å labelled,
+  hydrogen bonds dashed with distances in Å.</figcaption>
+</figure>
+
+<figure>
+  <img src="figures_focused/overlay_all.png" alt="All five compounds and the crystal ligand XCJ superimposed in the FabK pocket" loading="lazy">
+  <figcaption><strong>Overlay.</strong> All five compounds in one pocket, with
+  the co-crystallised ligand XCJ as thin grey sticks for reference. Shared
+  camera view across the series.</figcaption>
+</figure>
 </section>
 
 <!-- ------------------------------------------------ -->
@@ -296,6 +325,33 @@ contact are drawn and labelled, which is what keeps the figures readable.</p>
     <tr><td><code>&lt;cmpd&gt;_session.pse</code></td><td>Session for manual re-orientation</td></tr>
   </tbody>
 </table>
+
+<h3>Interaction maps — all five compounds</h3>
+<div class="grid">
+  <figure>
+    <img src="interactions_focused/20sa23_interactions.png" alt="Interaction map for 20sa23" loading="lazy">
+    <figcaption><strong>20sa23</strong> · MIC 1 µg/mL · 3,5-dichloro</figcaption>
+  </figure>
+  <figure>
+    <img src="interactions_focused/25sa23_interactions.png" alt="Interaction map for 25sa23" loading="lazy">
+    <figcaption><strong>25sa23</strong> · MIC 2 µg/mL · 3-CF₃, 5-F</figcaption>
+  </figure>
+  <figure>
+    <img src="interactions_focused/22sa23_interactions.png" alt="Interaction map for 22sa23" loading="lazy">
+    <figcaption><strong>22sa23</strong> · MIC 4 µg/mL · 3-CF₃, 4-F</figcaption>
+  </figure>
+  <figure>
+    <img src="interactions_focused/5sa23_interactions.png" alt="Interaction map for 5sa23" loading="lazy">
+    <figcaption><strong>5sa23</strong> · MIC 16 µg/mL · 3-fluoro</figcaption>
+  </figure>
+  <figure>
+    <img src="interactions_focused/17sa23_interactions.png" alt="Interaction map for 17sa23" loading="lazy">
+    <figcaption><strong>17sa23</strong> · MIC 32 µg/mL · 3,4-difluoro</figcaption>
+  </figure>
+</div>
+<p class="caption">Ordered by potency, most potent first. Only residues that
+make contact are drawn and labelled; dash colour encodes the interaction type
+per the table above.</p>
 </section>
 
 <!-- ------------------------------------------------ -->

@@ -16,7 +16,9 @@ This section covers the structure-analysis stage: how the docked poses were
 rendered and how every protein–ligand contact was detected, measured and
 tabulated.
 
-Step-by-step walkthrough: [`index.html`](index.html)
+**Read it online:** https://siamchowdhury-1.github.io/structure-analysis-fabk-docking-7L00/
+— the full walkthrough with every figure, no download required.
+
 Full study report: https://siamchowdhury-1.github.io/fabk-docking-7L00/
 Reference paper: https://doi.org/10.1021/acs.jmedchem.3c00969
 
@@ -126,10 +128,6 @@ which the aromatic-ring and valence detection depend on.
 ---
 
 # Workflow
-
-The same steps are available as a browser-readable walkthrough in
-[`index.html`](index.html) — open it locally, or serve it with
-`python -m http.server` and visit <http://localhost:8000>.
 
 This covers the visualisation and interaction-analysis stage only. Receptor
 preparation, redocking validation, Vina docking and MM-GBSA are upstream steps
