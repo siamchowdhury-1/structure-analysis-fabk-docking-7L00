@@ -10,8 +10,45 @@ Beck College of Sciences and Mathematics, Arkansas State University, AR, USA
 
 # Structure Analysis of the Interaction of 7L00 (FabK) & Compounds (5sa23, 17sa23, 20sa23, 22sa23, 25sa23)
 
-PyMOL scripts for analysing and rendering the binding interactions between the
-enoyl-ACP reductase FabK (PDB 7L00) and the s_series compounds.
+Interaction analysis of five pyrazole benzoic acid derivatives bound to
+*Clostridioides difficile* FabK, an enzyme of bacterial fatty acid biosynthesis.
+This section covers the structure-analysis stage: how the docked poses were
+rendered and how every protein–ligand contact was detected, measured and
+tabulated.
+
+Step-by-step walkthrough: [`index.html`](index.html)
+Full study report: https://siamchowdhury-1.github.io/fabk-docking-7L00/
+Reference paper: https://doi.org/10.1021/acs.jmedchem.3c00969
+
+---
+
+## Context
+
+The docking protocol was validated by redocking the co-crystallised inhibitor
+XCJ, reproducing the experimental pose to 0.82 Å RMSD. MM/GBSA rescoring
+reproduced the measured antibacterial potency order of all five compounds
+exactly, across a 32-fold range of MIC; the docking score alone did not.
+
+The pocket is strongly anionic, carrying Glu136 at −1 and the FMN phosphate at
+−2, while these compounds are benzoate anions. Every compound is
+electrostatically repelled, and how strongly depends on where the aniline
+substitution places the carboxylate. That is what separates them, and it is why
+a scoring function without an explicit electrostatic term could not.
+
+| Compound | Aniline | MIC (µg/mL) | MM/GBSA (kcal/mol) |
+|---|---|---:|---:|
+| 20sa23 | 3,5-dichloro | 1 | −32.02 |
+| 25sa23 | 3-CF₃, 5-F | 2 | −28.53 |
+| 22sa23 | 3-CF₃, 4-F | 4 | −23.35 |
+| 5sa23 | 3-fluoro | 16 | −17.89 |
+| 17sa23 | 3,4-difluoro | 32 | −10.78 |
+
+MIC values are from the source paper, measured against *Staphylococcus aureus*
+ATCC 29213. The structure is *C. difficile* FabK, so the comparison is between a
+binding model for one enzyme and whole-cell activity in another organism.
+MM/GBSA values are computational scores, not experimentally measured binding
+free energies. Five compounds is a small set, and the rank agreement carries
+limited statistical weight on its own.
 
 | | |
 |---|---|
@@ -234,25 +271,27 @@ WIDTH, HEIGHT, DPI = 2400, 1800, 300
 
 ---
 
-## Step 5 — Review
+## Step 5 — Results
 
 ```bash
 cat interactions_focused/summary_all_compounds.tsv
 xdg-open interactions_focused/17sa23_interactions.png
 ```
 
-Contacts detected in the focused docking run:
+Contacts detected in the focused docking run, ordered by potency:
 
 | Compound | H-bond | Halogen | π–π | Hydrophobic |
-|---|---|---|---|---|
+|---|---:|---:|---:|---:|
+| 20sa23 | 2 | 3 | 2 | 4 |
+| 25sa23 | 1 | 5 | 1 | 3 |
+| 22sa23 | 2 | 0 | 1 | 5 |
 | 5sa23 | 0 | 0 | 1 | 5 |
 | 17sa23 | 1 | 2 | 1 | 5 |
-| 20sa23 | 2 | 3 | 2 | 4 |
-| 22sa23 | 2 | 0 | 1 | 5 |
-| 25sa23 | 1 | 5 | 1 | 3 |
 
-20sa23 forms the most extensive polar network; the fluorine-rich compounds
-(25sa23, 20sa23) register the most halogen contacts.
+20sa23, the most potent compound, forms the most extensive polar network.
+Contact counts alone do not track potency across the series — the MM/GBSA
+electrostatic term is what separates these compounds, not the number of
+contacts.
 
 ---
 

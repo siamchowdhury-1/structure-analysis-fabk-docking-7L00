@@ -12,7 +12,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Structure Analysis — 7L00 (FabK)</title>
+<title>Structure Analysis — FabK (7L00)</title>
 <style>
   :root{
     --bg:#ffffff; --fg:#1a1d21; --muted:#5b636d; --line:#e2e6ea;
@@ -37,47 +37,57 @@
     font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:860px; margin:0 auto; padding:0 16px 96px}
-  header{border-bottom:1px solid var(--line); padding:56px 0 28px; margin-bottom:8px}
-  .eyebrow{color:var(--accent); font-size:13px; letter-spacing:.12em; text-transform:uppercase; font-weight:650; margin:0 0 10px}
-  h1{font-size:30px; line-height:1.25; margin:0 0 6px; letter-spacing:-.015em}
-  h1 .sub{display:block; font-size:19px; font-weight:500; color:var(--muted); margin-top:8px; letter-spacing:0}
-  h2{font-size:22px; margin:52px 0 14px; letter-spacing:-.01em; scroll-margin-top:20px}
-  h3{font-size:16px; margin:28px 0 8px; color:var(--muted); font-weight:650;
+  .wrap{max-width:840px; margin:0 auto; padding:0 16px 96px}
+  header{padding:56px 0 24px}
+  .eyebrow{color:var(--accent); font-size:13px; letter-spacing:.12em;
+           text-transform:uppercase; font-weight:650; margin:0 0 10px}
+  h1{font-size:30px; line-height:1.25; margin:0 0 14px; letter-spacing:-.015em}
+  .lede{font-size:18px; line-height:1.6; color:var(--muted); margin:0 0 18px}
+  h2{font-size:21px; margin:48px 0 14px; letter-spacing:-.01em; scroll-margin-top:20px;
+     padding-bottom:8px; border-bottom:1px solid var(--line)}
+  h3{font-size:15px; margin:26px 0 8px; color:var(--muted); font-weight:650;
      text-transform:uppercase; letter-spacing:.07em}
   p{margin:0 0 14px}
   a{color:var(--accent)}
+  ul{margin:0 0 14px; padding-left:22px}
+  li{margin:4px 0}
   code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.9em;
        background:var(--code-bg); padding:.15em .4em; border-radius:4px}
   pre{background:var(--code-bg); color:var(--code-fg); padding:14px 16px; border-radius:8px;
       overflow-x:auto; border:1px solid var(--line); margin:0 0 16px}
   pre code{background:none; padding:0; font-size:13.5px; line-height:1.55}
-  table{border-collapse:collapse; width:100%; margin:0 0 18px; font-size:14.5px}
+  table{border-collapse:collapse; width:100%; margin:0 0 14px; font-size:14.5px}
   th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top}
   th{font-weight:650; color:var(--muted); font-size:13px; text-transform:uppercase; letter-spacing:.05em}
   tbody tr:last-child td{border-bottom:none}
+  td.num{text-align:right; font-variant-numeric:tabular-nums}
+  th.num{text-align:right}
   .meta td:first-child{color:var(--muted); white-space:nowrap; width:150px}
+  .caption{font-size:13.5px; color:var(--muted); margin:-4px 0 20px; line-height:1.55}
   .note{background:var(--warn-bg); border-left:3px solid var(--warn-line);
         padding:14px 16px; border-radius:0 6px 6px 0; margin:0 0 20px; font-size:15px}
   .note strong{display:block; margin-bottom:4px}
-  .step{border-left:3px solid var(--accent); padding-left:18px; margin:40px 0}
-  .step h2{margin-top:0}
+  .step{border-left:3px solid var(--accent); padding-left:18px; margin:36px 0}
+  .step h2{margin-top:0; border-bottom:none; padding-bottom:0}
   .pill{display:inline-block; background:var(--accent-soft); color:var(--accent);
         font-size:12px; font-weight:650; padding:3px 9px; border-radius:99px;
-        letter-spacing:.04em; margin-bottom:10px}
+        letter-spacing:.04em; margin-bottom:8px}
   .swatch{display:inline-block; width:11px; height:11px; border-radius:3px;
           margin-right:7px; vertical-align:-1px; border:1px solid rgba(128,128,128,.35)}
   nav.toc{background:var(--code-bg); border:1px solid var(--line); border-radius:8px;
-          padding:16px 20px; margin:24px 0 8px}
+          padding:16px 20px; margin:28px 0 8px}
   nav.toc p{font-size:13px; text-transform:uppercase; letter-spacing:.07em;
             color:var(--muted); font-weight:650; margin:0 0 8px}
   nav.toc ol{margin:0; padding-left:20px; font-size:15px}
   nav.toc li{margin:3px 0}
-  footer{border-top:1px solid var(--line); margin-top:64px; padding-top:22px;
-         color:var(--muted); font-size:14px}
+  .links{font-size:15px; margin:0 0 8px}
+  .links a{display:inline-block; margin-right:18px}
+  footer{border-top:1px solid var(--line); margin-top:60px; padding-top:22px;
+         color:var(--muted); font-size:14px; line-height:1.7}
   @media (max-width:560px){
-    h1{font-size:25px} header{padding-top:36px}
+    h1{font-size:24px} .lede{font-size:16.5px} header{padding-top:36px}
     .meta td:first-child{width:auto}
+    table{font-size:13.5px} th,td{padding:8px 8px}
   }
 </style>
 </head>
@@ -86,26 +96,50 @@
 
 <header>
   <p class="eyebrow">Computational &amp; Medicinal Chemistry</p>
-  <h1>Structure Analysis of the Interaction of 7L00 (FabK)
-    <span class="sub">with compounds 5sa23, 17sa23, 20sa23, 22sa23 and 25sa23</span>
-  </h1>
+  <h1>Structure analysis — FabK docking study (PDB 7L00)</h1>
+  <p class="lede">Interaction analysis of five pyrazole benzoic acid derivatives
+  bound to <em>Clostridioides difficile</em> FabK, an enzyme of bacterial fatty
+  acid biosynthesis. This page covers the structure-analysis stage: how the
+  docked poses were rendered and how every protein–ligand contact was detected,
+  measured and tabulated.</p>
+  <p class="links">
+    <a href="https://siamchowdhury-1.github.io/fabk-docking-7L00/">Full study report</a>
+    <a href="https://doi.org/10.1021/acs.jmedchem.3c00969">Reference paper</a>
+  </p>
 </header>
 
-<table class="meta">
+<h2 id="context">Context</h2>
+
+<p>The docking protocol was validated by redocking the co-crystallised inhibitor
+XCJ, reproducing the experimental pose to 0.82&nbsp;Å RMSD. MM/GBSA rescoring
+reproduced the measured antibacterial potency order of all five compounds
+exactly, across a 32-fold range of MIC; the docking score alone did not.</p>
+
+<p>The pocket is strongly anionic, carrying Glu136 at −1 and the FMN phosphate
+at −2, while these compounds are benzoate anions. Every compound is
+electrostatically repelled, and how strongly depends on where the aniline
+substitution places the carboxylate. That is what separates them, and it is why
+a scoring function without an explicit electrostatic term could not.</p>
+
+<table>
+  <thead>
+    <tr><th>Compound</th><th>Aniline</th><th class="num">MIC (µg/mL)</th><th class="num">MM/GBSA (kcal/mol)</th></tr>
+  </thead>
   <tbody>
-    <tr><td>Author</td><td>Siam Chowdhury (Beck Scholar) · <a href="https://www.siamchowdhury.com">www.siamchowdhury.com</a></td></tr>
-    <tr><td>Field</td><td>Computational and Medicinal Chemistry</td></tr>
-    <tr><td>Mentor</td><td>Mohammad Alam, PhD — Professor of Chemistry</td></tr>
-    <tr><td>Research group</td><td><a href="https://www.alamresearch.org">Dr. Alam's Research Team</a></td></tr>
-    <tr><td>Institution</td><td>Beck College of Sciences and Mathematics, Arkansas State University, AR, USA</td></tr>
+    <tr><td>20sa23</td><td>3,5-dichloro</td><td class="num">1</td><td class="num">−32.02</td></tr>
+    <tr><td>25sa23</td><td>3-CF₃, 5-F</td><td class="num">2</td><td class="num">−28.53</td></tr>
+    <tr><td>22sa23</td><td>3-CF₃, 4-F</td><td class="num">4</td><td class="num">−23.35</td></tr>
+    <tr><td>5sa23</td><td>3-fluoro</td><td class="num">16</td><td class="num">−17.89</td></tr>
+    <tr><td>17sa23</td><td>3,4-difluoro</td><td class="num">32</td><td class="num">−10.78</td></tr>
   </tbody>
 </table>
 
-<p>This page documents the visualisation and interaction-analysis stage of the
-FabK study: how the docked poses of five s_series compounds were rendered and
-how every protein–ligand contact was detected, measured and tabulated. Receptor
-preparation, redocking validation, Vina docking and MM-GBSA are upstream steps
-documented separately.</p>
+<p class="caption">MIC values are from the source paper, measured against
+<em>Staphylococcus aureus</em> ATCC 29213. The structure is <em>C. difficile</em>
+FabK, so the comparison is between a binding model for one enzyme and whole-cell
+activity in another organism. MM/GBSA values are computational scores, not
+experimentally measured binding free energies. Five compounds is a small set,
+and the rank agreement carries limited statistical weight on its own.</p>
 
 <div class="note">
   <strong>No GUI involved</strong>
@@ -125,7 +159,7 @@ documented separately.</p>
     <li><a href="#step2">Binding-pose figures</a></li>
     <li><a href="#step3">Full interaction analysis</a></li>
     <li><a href="#step4">Label sizing</a></li>
-    <li><a href="#step5">Review of results</a></li>
+    <li><a href="#step5">Results</a></li>
     <li><a href="#step6">Version control</a></li>
     <li><a href="#issues">Issues encountered</a></li>
   </ol>
@@ -296,25 +330,28 @@ WIDTH, HEIGHT, DPI = 2400, 1800, 300</code></pre>
 <!-- ------------------------------------------------ -->
 <section class="step" id="step5">
 <span class="pill">STEP 5</span>
-<h2>Review of results</h2>
+<h2>Results</h2>
 
 <pre><code>cat interactions_focused/summary_all_compounds.tsv
 xdg-open interactions_focused/17sa23_interactions.png</code></pre>
 
 <h3>Contacts detected — focused docking run</h3>
 <table>
-  <thead><tr><th>Compound</th><th>H-bond</th><th>Halogen</th><th>π–π</th><th>Hydrophobic</th></tr></thead>
+  <thead><tr><th>Compound</th><th class="num">H-bond</th><th class="num">Halogen</th><th class="num">π–π</th><th class="num">Hydrophobic</th></tr></thead>
   <tbody>
-    <tr><td>5sa23</td><td>0</td><td>0</td><td>1</td><td>5</td></tr>
-    <tr><td>17sa23</td><td>1</td><td>2</td><td>1</td><td>5</td></tr>
-    <tr><td>20sa23</td><td>2</td><td>3</td><td>2</td><td>4</td></tr>
-    <tr><td>22sa23</td><td>2</td><td>0</td><td>1</td><td>5</td></tr>
-    <tr><td>25sa23</td><td>1</td><td>5</td><td>1</td><td>3</td></tr>
+    <tr><td>20sa23</td><td class="num">2</td><td class="num">3</td><td class="num">2</td><td class="num">4</td></tr>
+    <tr><td>25sa23</td><td class="num">1</td><td class="num">5</td><td class="num">1</td><td class="num">3</td></tr>
+    <tr><td>22sa23</td><td class="num">2</td><td class="num">0</td><td class="num">1</td><td class="num">5</td></tr>
+    <tr><td>5sa23</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">5</td></tr>
+    <tr><td>17sa23</td><td class="num">1</td><td class="num">2</td><td class="num">1</td><td class="num">5</td></tr>
   </tbody>
 </table>
 
-<p>20sa23 forms the most extensive polar network; the fluorine-rich compounds
-(25sa23, 20sa23) register the most halogen contacts.</p>
+<p class="caption">Rows are ordered by potency, most potent first, to match the
+MIC table above. 20sa23, the most potent compound, forms the most extensive
+polar network. Contact counts alone do not track potency across the series — the
+MM/GBSA electrostatic term is what separates these compounds, not the number of
+contacts.</p>
 
 <div class="note">
   <strong>Known limitation</strong>
@@ -382,12 +419,24 @@ find . -size +45M -not -path "./.git/*"</code></pre>
 </table>
 </section>
 
+<!-- ------------------------------------------------ -->
+<h2 id="credits">Credits</h2>
+<table class="meta">
+  <tbody>
+    <tr><td>Author</td><td>Siam Chowdhury (Beck Scholar) · <a href="https://www.siamchowdhury.com">www.siamchowdhury.com</a></td></tr>
+    <tr><td>Field</td><td>Computational and Medicinal Chemistry</td></tr>
+    <tr><td>Mentor</td><td>Mohammad Alam, PhD — Professor of Chemistry</td></tr>
+    <tr><td>Research group</td><td><a href="https://www.alamresearch.org">Dr. Alam's Research Team</a></td></tr>
+    <tr><td>Institution</td><td>Beck College of Sciences and Mathematics, Arkansas State University, AR, USA</td></tr>
+    <tr><td>Full report</td><td><a href="https://siamchowdhury-1.github.io/fabk-docking-7L00/">siamchowdhury-1.github.io/fabk-docking-7L00</a></td></tr>
+    <tr><td>Reference paper</td><td><a href="https://doi.org/10.1021/acs.jmedchem.3c00969">10.1021/acs.jmedchem.3c00969</a></td></tr>
+  </tbody>
+</table>
+
 <footer>
-  <p>Siam Chowdhury (Beck Scholar) ·
-     <a href="https://www.siamchowdhury.com">www.siamchowdhury.com</a><br>
-     Computational and Medicinal Chemistry · Mentor: Mohammad Alam, PhD<br>
-     <a href="https://www.alamresearch.org">Dr. Alam's Research Team</a> ·
-     Beck College of Sciences and Mathematics, Arkansas State University, AR, USA</p>
+  <p>Siam Chowdhury · Computational and Medicinal Chemistry<br>
+     Mentor: Mohammad Alam, PhD · Dr. Alam's Research Team<br>
+     Arkansas State University, AR, USA</p>
 </footer>
 
 </div>
