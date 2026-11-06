@@ -293,26 +293,68 @@ contacts.
 
 ---
 
-## Step 6 — Version control
+---
 
-```bash
-git init
-git branch -M main
-git add .
-git commit -m "FabK (7L00) structure analysis: scripts, figures and interaction tables"
-```
+## Algorithm
 
-`.gitignore` excludes regenerable and oversized output: `.pse` sessions,
-`.pdbqt` files, multi-pose SDF/MOL2 files, MM-GBSA trajectories and the
-`figures_*` directories. The `.tsv` interaction tables and `*_best.mol2` poses
-are small and are tracked.
+Every file, with what it does. The expandable version is on the
+[online walkthrough](https://siamchowdhury-1.github.io/structure-analysis-fabk-docking-7L00/#algorithm).
 
-Check sizes before pushing (GitHub warns above 50 MB, blocks at 100 MB):
+### `make_docking_figures.py`
 
-```bash
-git count-objects -vH
-find . -size +45M -not -path "./.git/*"
-```
+1. Verify the receptor is present in the working directory; exit with a plain
+   message if not.
+2. For each compound, load the receptor, the crystal ligand and the best pose.
+3. Strip aliphatic C–H hydrogens, keeping only polar N–H and O–H.
+4. Select the FMN cofactor within 6 Å and all protein residues within 4.0 Å.
+5. On the first compound only, orient on the XCJ crystal site and store the
+   camera matrix; reuse it for every later compound.
+6. Render the pocket overview, then the close-up with labelled residues and
+   H-bond distances.
+7. Write the H-bond list, and after the loop render the all-compound overlay.
+
+### `make_interaction_figures.py`
+
+1. Load receptor and pose, then `h_add` the receptor for donor/acceptor typing;
+   input files are never modified.
+2. **Hydrogen bonds** — `find_pairs` on donor/acceptor atoms, ≤ 3.5 Å.
+3. **Halogen bonds** — ligand F/Cl/Br/I against site O and N, ≤ 3.5 Å.
+4. **Salt bridges** — charged ligand N against Asp/Glu carboxylate O, and ligand
+   carboxylate O against Arg/Lys N, ≤ 4.0 Å.
+5. **Ring detection** — adjacency graph from the bond list, 5- and 6-membered
+   cycles by depth-first search, kept only if planar (every atom within 0.25 Å
+   of the mean plane); centroid and normal computed per ring.
+6. **π–π stacking** — ring centroid against Phe/Tyr/Trp/His centroid, ≤ 5.5 Å,
+   keeping parallel (< 30°) and T-shaped (> 60°) geometries only.
+7. **π–cation** — ring centroid against Arg/Lys nitrogen, ≤ 6.0 Å.
+8. **Hydrophobic** — ligand C against apolar side-chain C, ≤ 4.0 Å, requiring
+   ≥ 2 contacts per residue.
+9. Collapse to the best contact per residue and type, draw colour-coded dashes,
+   show and label only contacting residues.
+10. Write the per-compound TSV, the combined summary and the colour legend.
+
+### `acs_labels.pml`
+
+1. Sum bond orders per heteroatom, counting aromatic bonds as 1.5.
+2. Implicit H count = valence + formal charge − summed bond orders, clamped at
+   zero.
+3. Compose the label (`NH`, `NH₂`, `OH`, or the bare symbol).
+4. Size in Ångströms and float above the sticks with a white outline.
+
+### Output files
+
+| File | Contents |
+|---|---|
+| `figures_focused/<cmpd>_pocket.png` | Binding-pose overview, shared camera, 2400 × 1800 at 300 dpi |
+| `figures_focused/<cmpd>_closeup.png` | Residues within 4.0 Å labelled, H-bonds dashed with distances |
+| `figures_focused/<cmpd>_interactions.txt` | Plain-text H-bond list |
+| `figures_focused/overlay_all.png` | All five compounds plus XCJ in one pocket |
+| `figures_focused/overlay_legend.txt` | Colour-to-compound map for the overlay |
+| `interactions_focused/<cmpd>_interactions.png` | Interaction map, contacting residues only |
+| `interactions_focused/<cmpd>_interactions.tsv` | One row per contact: type, residue, chain, atoms, distance |
+| `interactions_focused/summary_all_compounds.tsv` | All five compounds in one table |
+| `interactions_focused/legend.txt` | Colour key with cutoffs, for figure captions |
+| `<cmpd>_session.pse` | PyMOL session for manual re-orientation (not tracked) |
 
 ---
 
