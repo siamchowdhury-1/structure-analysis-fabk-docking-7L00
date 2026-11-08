@@ -371,37 +371,8 @@ per the table above.</p>
 </section>
 
 <!-- ------------------------------------------------ -->
-<section class="step" id="step4">
-<span class="pill">STEP 4</span>
-<h2>Label sizing</h2>
-
-<p>The default label size was too small to read at 2400 × 1800. The value is
-adjusted in place and the figures re-rendered:</p>
-
-<pre><code>sed -i 's/s("label_size", -[0-9.]*)/s("label_size", -2.0)/' make_interaction_figures.py
-pymol -cq make_interaction_figures.py</code></pre>
-
-<p>The <code>-[0-9.]*</code> pattern matches whatever value is currently set, so
-the command works no matter how many times the size has already been changed —
-matching a literal previous value fails silently once it has moved on. Values
-are in Ångströms; a larger magnitude means larger text. <code>-2.0</code> was
-used for the final figures.</p>
-
-<p>To adjust one figure by hand rather than re-running everything:</p>
-
-<pre><code>pymol interactions_focused/17sa23_interactions.pse</code></pre>
-<pre><code>set label_size, -2.0
-png 17sa23_final.png, width=2400, height=1800, dpi=300, ray=1</code></pre>
-
-<h3>Other constants worth tuning</h3>
-<pre><code>HB_CUT   = 3.5    # hydrogen-bond cutoff (Å)
-PHOB_CUT = 4.0    # hydrophobic C···C cutoff (Å)
-WIDTH, HEIGHT, DPI = 2400, 1800, 300</code></pre>
-</section>
-
-<!-- ------------------------------------------------ -->
 <section class="step" id="step5">
-<span class="pill">STEP 5</span>
+<span class="pill">STEP 4</span>
 <h2>Results</h2>
 
 <pre><code>cat interactions_focused/summary_all_compounds.tsv
